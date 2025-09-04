@@ -1,0 +1,143 @@
+with meses as(
+    select
+        distinct
+        strftime('%Y-%m-01', order_approved_at) as mes_referencia,
+        1 as key
+    from tb_orders
+
+    where mes_referencia is not null
+    order by 1 asc
+),
+
+sellers as (
+    select
+        t1.seller_id,
+        min(strftime('%Y-%m-01', t2.order_approved_at)) as mes_primeira_venda,
+        1 as key
+    from tb_order_items as t1
+
+    left join tb_orders as t2
+    on t1.order_id = t2.order_id
+
+    group by 1
+),
+
+cruzamento as(
+    select
+        t1.mes_referencia,
+        t2.seller_id,
+        t2.mes_primeira_venda
+    from meses as t1
+
+    left join sellers as t2
+    on t1.key = t2.key
+
+    order by seller_id, mes_referencia asc
+),
+
+vendas as(
+    select
+        t1.seller_id,
+        strftime('%Y-%m-01', t2.order_approved_at) as mes_venda,
+        sum(t1.price) + sum(t1.freight_value) as valor_venda
+    from tb_order_items as t1
+
+    left join tb_orders as t2
+    on t1.order_id = t2.order_id
+
+    group by 1, 2
+),
+
+geral as (
+    select
+        t1.mes_referencia,
+        t1.seller_id,
+        t1.mes_primeira_venda,
+        coalesce(sum(t2.valor_venda), 0) as valor_venda
+    from cruzamento as t1
+
+    left join vendas as t2
+    on t1.seller_id = t2.seller_id and t1.mes_referencia = t2.mes_venda
+
+    group by 1, 2, 3
+    order by t1.seller_id, t1.mes_referencia
+),
+
+ativo as(
+    select
+        *,
+        case
+            when valor_venda > 0 then 1
+        else 0
+        end as ativo
+    from geral
+),
+
+ativo_lag as(
+    select
+        *,
+        lag(ativo) over(partition by seller_id order by mes_referencia asc) as ativo_lag
+    from ativo
+),
+
+churn1 as(
+
+    select
+        *,
+        case
+            when mes_primeira_venda > mes_referencia then 'Prior Entry'
+            when mes_referencia = mes_primeira_venda then 'Novo'
+            when ativo = 1 and ativo_lag = 1 then 'Regular'
+            when ativo = 0 and ativo_lag = 1 then 'Churn1'
+            when ativo = 1 and ativo_lag = 0 then 'Recuperado'
+        end as classificacao
+    from ativo_lag
+),
+
+churn2 as(
+
+    select
+        *,
+        case
+            when ativo = 0 and ativo_lag = 0 and lag(classificacao) over (partition by seller_id order by mes_referencia asc) = 'Churn1' then 'Churn2'
+        end as classificacao_2
+    from churn1
+),
+
+churn3 as(
+    select
+        *,
+        case
+            when lag(classificacao_2) over (partition by seller_id order by mes_referencia asc) = 'Churn2' then 'Churn3'
+        end as classificacao_3
+    from churn2
+),
+
+churn4 as(
+    select
+        *,
+        case
+            when lag(classificacao_3) over (partition by seller_id order by mes_referencia asc) = 'Churn3' then 'Churn4+'
+        end as classificacao_4
+    from churn3
+)
+
+select
+    mes_referencia,
+    seller_id,
+    mes_primeira_venda,
+    valor_venda,
+    ativo,
+    ativo_lag,
+    case
+        when classificacao = 'Prior Entry' then 'Prior Entry'
+        when classificacao = 'Novo' then 'Novo'
+        when classificacao = 'Regular' then 'Regular'
+        when classificacao = 'Recuperado' then 'Recuperado'
+        when classificacao = 'Churn1' then 'Churn1'
+        when classificacao_2 = 'Churn2' then 'Churn2'
+        when classificacao_3 = 'Churn3' then 'Churn3'
+        when classificacao_4 = 'Churn4+' then 'Churn4+'
+    else 'Churn4+'
+    end as classificacao
+from churn4
