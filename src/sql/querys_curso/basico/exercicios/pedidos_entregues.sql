@@ -1,6 +1,6 @@
 SELECT
   *
 FROM
-  fato_orders
+  olist_orders
 WHERE
   order_status = 'delivered'
