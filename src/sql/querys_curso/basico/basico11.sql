@@ -1,3 +1,4 @@
+--- like usado para classificacao
 SELECT
   *
 FROM
