@@ -1,3 +1,9 @@
+-- NPS == nota para clientes
+-- valores da nota -> 0 - 10
+-- detrator (0 - 6)
+-- neutro (7 - 8)
+-- promotor (9 - 10)
+-- calculo (promotor - detrator) / qtde de pessoas que responderam a pesq
 SELECT
   review_id,
   review_score,
