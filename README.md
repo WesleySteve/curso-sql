@@ -10,6 +10,13 @@
 - UV
 - Python >= 3.13
 
+## Libs utilizadas
+
+- "ipykernel>=6.30.1",
+- "kaggle>=1.7.4.5",
+- "pandas>=2.3.2",
+- "sqlalchemy>=2.0.43"
+
 ## Como usar o projeto
 
 - Clone o repositorio
