@@ -1,3 +1,6 @@
+-- monte uma tabela que mostre o seller_id 
+-- a categoria do produto 'mais vendido',
+-- a quantidade de vendas desse produto e o valor total de vendas
 WITH
   sellers AS (
     SELECT
