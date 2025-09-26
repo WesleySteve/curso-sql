@@ -52,7 +52,7 @@ $ git clone https://github.com/WesleySteve/curso-sql.git
   as consultas no banco de dados principal e sim em um banco analitico preparado
   para tais consultas.
 
-## Arvore de diretorios
+## Arvore de diretórios
 
 - curso-sql
   - banco
@@ -101,3 +101,12 @@ $ git clone https://github.com/WesleySteve/curso-sql.git
     - pyproject.toml
     - README.md
     - uv.lock
+
+## Etapas do projeto
+
+[ok] definição do objetivo
+[ok] pré-requisitos
+[ok] libs utilizadas
+[ok] como utilizar o projeto
+[ok] explicação
+[ok] arvore de diretórios
