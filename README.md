@@ -104,9 +104,9 @@ $ git clone https://github.com/WesleySteve/curso-sql.git
 
 ## Etapas do projeto
 
-[ok] definição do objetivo
-[ok] pré-requisitos
-[ok] libs utilizadas
-[ok] como utilizar o projeto
-[ok] explicação
-[ok] arvore de diretórios
+- [ok] definição do objetivo
+- [ok] pré-requisitos
+- [ok] libs utilizadas
+- [ok] como utilizar o projeto
+- [ok] explicação
+- [ok] arvore de diretórios
