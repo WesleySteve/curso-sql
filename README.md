@@ -51,3 +51,53 @@ $ git clone https://github.com/WesleySteve/curso-sql.git
   as operações do dia-a-dia de uma empresa, por não estar diretamente realizando
   as consultas no banco de dados principal e sim em um banco analitico preparado
   para tais consultas.
+
+## Arvore de diretorios
+
+- curso-sql
+  - banco
+    - oltp.png
+  - data
+    - churn_completo_olist.txt
+    - e demais arquivos adicionados no .gitignore
+  - src
+    - db
+      - dw.py
+      - oltp.py
+    - dw
+      - g_dim_customers.sql
+      - g_dim_geolocation.sql
+      - g_dim_payments.sql
+      - g_dim_products.sql
+      - g_dim_sellers.sql
+      - g_fato_orders
+    - etl_oltp
+      - extract_oltp.py
+    - sql
+      - querys_comparativo_curso
+        - avancado
+          - avancados.sql
+        - basico
+          - exercicios
+            - querys_exercicios.sql
+          - basicos.sql
+        - intermediario
+          - exercicios
+            - querys_exercicios.sql
+          - intermediarios.sql
+      - querys_curso
+        - avancado
+          - avancados.sql
+        - basico
+          - exercicios
+            - querys_exercicios.sql
+          - basicos.sql
+        - intermediario
+          - exercicios
+            - querys_exercicios.sql
+          - intermediarios.sql
+    - .gitignore
+    - .python-version
+    - pyproject.toml
+    - README.md
+    - uv.lock
