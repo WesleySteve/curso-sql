@@ -23,7 +23,7 @@ WITH
       1,
       2
   ),
-  crusamento AS (
+  cruzamento AS (
     SELECT
       t1.seller_id,
       t1.valor_total,
@@ -49,7 +49,7 @@ WITH
         WHEN payment_type = 'debit_card' THEN SUM(valor_total)
       END AS cartao_debito
     FROM
-      crusamento
+      cruzamento
     GROUP BY
       seller_id,
       payment_type
