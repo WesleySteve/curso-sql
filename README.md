@@ -25,6 +25,12 @@ $ git clone https://github.com/WesleySteve/curso-sql.git
 
 ## Explicação
 
+- O script 'extract_olist.py' , realiza o download dos arquivos necessarios.
+  Mas por algum motivo que ainda não descobri os arquivos baixados utilizando tal
+  recurso, ficam como se fossem arquivos corrompidos, assim não conseguindo ler
+  e gerar o banco de dados relacional inicial.
+  Para assim dar sequencia na execuçãos dos demais scripts
+
 - O script 'extract_olist.py' escrito em: 'src/etl_oltp/extract.py' ,
   tem como objetivo realizar o download dos arquivos '.csv' disponibilizados
   no site do 'Kaggle' pela OLIST, para que seja construido o
@@ -37,3 +43,11 @@ $ git clone https://github.com/WesleySteve/curso-sql.git
   será desenhado posteriormente. Com este banco analitico a disposição é melhor
   para realizar as consultas necessarias do dia-a-dia não atrapalhando o
   funcionamento do banco de dados principal (operacional do dia-a-dia).
+- Os scripts desenvolvidos em: 'src/sql/querys_curso' ,
+  são scripts de estudo baseado no conteudo do curso. Os mesmos utilizam da base
+  relacional, onde não se faria estas querys normalmente.
+- Os scripts desenvolvidos em: 'src/sql/querys_comparativo_curso' ,
+  estes sim são scripts executados em um ambiente apropriado que não atrapalha
+  as operações do dia-a-dia de uma empresa, por não estar diretamente realizando
+  as consultas no banco de dados principal e sim em um banco analitico preparado
+  para tais consultas.
